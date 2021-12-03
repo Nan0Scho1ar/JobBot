@@ -1,0 +1,60 @@
+[1mdiff --git a/Shared/helpers.py b/Shared/helpers.py[m
+[1mindex 519b8f9..bc9796f 100644[m
+[1m--- a/Shared/helpers.py[m
+[1m+++ b/Shared/helpers.py[m
+[36m@@ -4,13 +4,13 @@[m [mfrom typing import Callable, List[m
+ [m
+ import nltk[m
+ [m
+[31m-from Shared.constants import HTMLConstants[m
+ """[m
+ Point of these two classes is to allow me to make a constant object dictionary.[m
+ Acts somewhat similar to a String Enum or a object in Javascript[m
+ """[m
+ [m
+ [m
+[32m+[m
+ class MetaConst(type):[m
+     def __getattr__(cls, key):[m
+         return cls[key][m
+[36m@@ -26,6 +26,40 @@[m [mclass Const(object, metaclass=MetaConst):[m
+     def __setattr__(self, name, value):[m
+         raise TypeError[m
+ [m
+[32m+[m[32m# Duplicated in[m
+[32m+[m[32m# Shared.constants[m
+[32m+[m[32mclass HTMLConstants(Const):[m
+[32m+[m
+[32m+[m[32m    class TagType(Const):[m
+[32m+[m[32m        DIV = 'div'[m
+[32m+[m[32m        SPAN = 'span'[m
+[32m+[m[32m        INPUT = 'input'[m
+[32m+[m[32m        TEXT_AREA = 'textarea'[m
+[32m+[m[32m        SELECT = 'select'[m
+[32m+[m[32m        H2 = 'h2'[m
+[32m+[m[32m        ANCHOR = 'a'[m
+[32m+[m[32m        PARAGRAPH = 'p'[m
+[32m+[m
+[32m+[m[32m    class Attributes(Const):[m
+[32m+[m[32m        HREF = 'href'[m
+[32m+[m[32m        TYPE = 'type'[m
+[32m+[m[32m        ID = 'id'[m
+[32m+[m[32m        INNER_TEXT = 'innerText'[m
+[32m+[m[32m        NAME = 'name'[m
+[32m+[m[32m        FOR = 'for'[m
+[32m+[m[32m        VALUE = 'value'[m
+[32m+[m[32m        CLASS = 'class'[m
+[32m+[m
+[32m+[m[32m    class InputTypes(Const):[m
+[32m+[m[32m        RADIO = 'radio'[m
+[32m+[m[32m        TEXT = 'text'[m
+[32m+[m[32m        PHONE = 'tel'[m
+[32m+[m[32m        EMAIL = 'email'[m
+[32m+[m[32m        FILE = 'file'[m
+[32m+[m[32m        TEXT_AREA = 'textarea'[m
+[32m+[m[32m        HIDDEN = 'hidden'[m
+[32m+[m[32m        CHECK_BOX = 'checkbox'[m
+[32m+[m[32m        SELECT_ONE = 'select-one'[m
+ [m
+ def _parametrized(dec):[m
+     """[m

@@ -4,11 +4,11 @@ from typing import Callable, List
 
 import nltk
 
-from Shared.constants import HTMLConstants
 """
 Point of these two classes is to allow me to make a constant object dictionary.
 Acts somewhat similar to a String Enum or a object in Javascript
 """
+
 
 
 class MetaConst(type):
@@ -26,6 +26,40 @@ class Const(object, metaclass=MetaConst):
     def __setattr__(self, name, value):
         raise TypeError
 
+# Duplicated in
+# Shared.constants
+class HTMLConstants(Const):
+
+    class TagType(Const):
+        DIV = 'div'
+        SPAN = 'span'
+        INPUT = 'input'
+        TEXT_AREA = 'textarea'
+        SELECT = 'select'
+        H2 = 'h2'
+        ANCHOR = 'a'
+        PARAGRAPH = 'p'
+
+    class Attributes(Const):
+        HREF = 'href'
+        TYPE = 'type'
+        ID = 'id'
+        INNER_TEXT = 'innerText'
+        NAME = 'name'
+        FOR = 'for'
+        VALUE = 'value'
+        CLASS = 'class'
+
+    class InputTypes(Const):
+        RADIO = 'radio'
+        TEXT = 'text'
+        PHONE = 'tel'
+        EMAIL = 'email'
+        FILE = 'file'
+        TEXT_AREA = 'textarea'
+        HIDDEN = 'hidden'
+        CHECK_BOX = 'checkbox'
+        SELECT_ONE = 'select-one'
 
 def _parametrized(dec):
     """
