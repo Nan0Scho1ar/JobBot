@@ -23,7 +23,7 @@ class QuestionLabelElements(object):
     def add_element(self, element):
         self.element_list.append(element)
 
-    def compute_question(self, driver: webdriver.Chrome) -> Question:
+    def compute_question(self, driver: webdriver.Firefox) -> Question:
         first_element:FirefoxWebElement = self.element_list[0]
         self.name = first_element.get_attribute(HTMLConstants.Attributes.NAME)
 
@@ -38,7 +38,7 @@ class QuestionLabelElements(object):
 
         return self.question
 
-    def add_more_information(self, driver: webdriver.Chrome):
+    def add_more_information(self, driver: webdriver.Firefox):
         string_additional_info = ''
         if (self.question.input_type == HTMLConstants.InputTypes.CHECK_BOX) or \
                 (self.question.input_type == HTMLConstants.InputTypes.RADIO):

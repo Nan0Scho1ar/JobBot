@@ -38,7 +38,7 @@ class Robot(ABC):
     ):
         self.user_config = user_config
         if driver == RobotConstants.Driver.CHROME:
-            self.driver = webdriver.Chrome()
+            self.driver = webdriver.Firefox()
         else:
             self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(RobotConstants.WAIT_IMPLICIT)

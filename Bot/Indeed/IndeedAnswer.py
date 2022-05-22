@@ -27,7 +27,7 @@ class IndeedAnswer(object):
         self.ab_builder = ab_builder
         self.user_config = user_config
 
-    def answer_all_questions(self, driver: webdriver.Chrome, job: Job, dict_qle: Dict[str, QuestionLabelElements]):
+    def answer_all_questions(self, driver: webdriver.Firefox, job: Job, dict_qle: Dict[str, QuestionLabelElements]):
         # Initialize
         names = list(dict_qle.keys())
         i = 0
@@ -68,7 +68,7 @@ class IndeedAnswer(object):
                 i += 1
                 name = names[i]
 
-    def _answer_question(self, driver: webdriver.Chrome, job: Job, qle: QuestionLabelElements):
+    def _answer_question(self, driver: webdriver.Firefox, job: Job, qle: QuestionLabelElements):
         # Question should already be in database at this point with updated answer hopefully
         qle.question = Question.get(Question.label == qle.question.label, Question.tag_type == qle.question.input_type)
         if qle.question.answer is not None:
@@ -118,7 +118,7 @@ class IndeedAnswer(object):
         job.error = RobotConstants.String.UNABLE_TO_ANSWER
         return self.AnswerState.CANNOT_ANSWER
 
-    def _answer_message(self, driver: webdriver.Chrome, job: Job, qle: QuestionLabelElements) -> Enum:
+    def _answer_message(self, driver: webdriver.Firefox, job: Job, qle: QuestionLabelElements) -> Enum:
         message = self.ab_builder.generate_message(job.description, job.company)
         if message is not None:
             try:
@@ -137,7 +137,7 @@ class IndeedAnswer(object):
             job.error = RobotConstants.String.NOT_ENOUGH_KEYWORD_MATCHES
             return self.AnswerState.CANNOT_ANSWER
 
-    def _answer_text(self, driver: webdriver.Chrome, job: Job, qle: QuestionLabelElements) -> Enum:
+    def _answer_text(self, driver: webdriver.Firefox, job: Job, qle: QuestionLabelElements) -> Enum:
         try:
             element = driver.find_element(By.NAME, qle.name)
             element.clear()
@@ -155,7 +155,7 @@ class IndeedAnswer(object):
 
         return self.AnswerState.CANNOT_ANSWER
 
-    def _answer_check_button(self, driver: webdriver.Chrome, job: Job, qle: QuestionLabelElements) -> Enum:
+    def _answer_check_button(self, driver: webdriver.Firefox, job: Job, qle: QuestionLabelElements) -> Enum:
         if qle.question.answer is not None:
             span_answers = qle.question.answer.split(',')
             span_answers = [answer.strip() for answer in span_answers]
@@ -178,7 +178,7 @@ class IndeedAnswer(object):
         else:
             raise NotImplementedError
 
-    def _answer_select(self, driver: webdriver.Chrome, job: Job, qle: QuestionLabelElements) -> Enum:
+    def _answer_select(self, driver: webdriver.Firefox, job: Job, qle: QuestionLabelElements) -> Enum:
         select_name = qle.element_list[0].get_attribute(HTMLConstants.Attributes.NAME)
         try:
             select = Select(driver.find_element(By.NAME, select_name))

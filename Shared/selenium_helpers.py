@@ -6,7 +6,7 @@ from selenium import webdriver, common
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.webelement import FirefoxWebElement
 
-def does_element_exist(driver: webdriver.Chrome, by_selector, identifier: str) -> bool:
+def does_element_exist(driver: webdriver.Firefox, by_selector, identifier: str) -> bool:
     """
     Function that checks if a element exists on the page
     :param driver: selenium.webdriver
@@ -22,12 +22,12 @@ def does_element_exist(driver: webdriver.Chrome, by_selector, identifier: str) -
         return False
 
 
-def get_rendered_html(driver: webdriver.Chrome) -> str:
+def get_rendered_html(driver: webdriver.Firefox) -> str:
     rendered_html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
     return rendered_html
 
 
-def scroll_infinitely(driver: webdriver.Chrome, pause_time_seconds:float = 0.5):
+def scroll_infinitely(driver: webdriver.Firefox, pause_time_seconds:float = 0.5):
     last_height = driver.execute_script("return document.body.scrollHeight")
     while True:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -38,7 +38,7 @@ def scroll_infinitely(driver: webdriver.Chrome, pause_time_seconds:float = 0.5):
         last_height = new_height
 
 
-def scroll_gradually(driver: webdriver.Chrome, pause_time_seconds=0.5, scroll_amount=200):
+def scroll_gradually(driver: webdriver.Firefox, pause_time_seconds=0.5, scroll_amount=200):
     prev_height = driver.execute_script("return window.pageYOffset")
     while True:
         driver.execute_script("window.scrollTo(0, {0});".format(prev_height + scroll_amount))
@@ -48,12 +48,12 @@ def scroll_gradually(driver: webdriver.Chrome, pause_time_seconds=0.5, scroll_am
             break
         prev_height = cur_height
 
-def adjust_zoom(driver: webdriver.Chrome, zoom_percentage: float):
+def adjust_zoom(driver: webdriver.Firefox, zoom_percentage: float):
     zoom_string = "document.body.style.zoom='{0}%'".format(zoom_percentage)
     driver.execute_script(zoom_string)
 
 
-def open_in_new_tab(driver: webdriver.Chrome, by: By, identifier: str, ) -> bool:
+def open_in_new_tab(driver: webdriver.Firefox, by: By, identifier: str, ) -> bool:
     try:
         element_to_click = driver.find_element(by, identifier)
         ActionChains(driver).key_down(Keys.CONTROL).click(element_to_click).key_up(Keys.CONTROL).perform()
@@ -61,5 +61,5 @@ def open_in_new_tab(driver: webdriver.Chrome, by: By, identifier: str, ) -> bool
     except common.exceptions.NoSuchElementException:
         return False
 
-def open_link_new_tab(driver: webdriver.Chrome, link:str):
+def open_link_new_tab(driver: webdriver.Firefox, link:str):
     driver.execute_script("$(window.open('{0}'))".format(link))

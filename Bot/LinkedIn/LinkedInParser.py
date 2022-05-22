@@ -18,7 +18,7 @@ from Shared.models import Person
 
 class LinkedInParser(object):
     @staticmethod
-    def parse_result_page(driver: webdriver.Chrome) -> List[Person]:
+    def parse_result_page(driver: webdriver.Firefox) -> List[Person]:
         rendered_html = get_rendered_html(driver)
         soup = BeautifulSoup(rendered_html, 'html.parser')
         list_results_soup = soup.find_all('div', attrs={'class': LC.Class.SEARCH_RESULT})

@@ -17,7 +17,7 @@ class UserConfig(Const):
         USE_ALT_END_TAG = True
         USE_LONG_TEXT = False
         IS_DRY_RUN = False
-        WILL_RELOAD_TAGS_AND_BLURBS = True
+        WILL_RELOAD_TAGS_AND_BLURBS = False
 
         MINIMUM_NUMBER_MATCHING_KEYWORDS = 1
 
